@@ -1,4 +1,5 @@
 #!/bin/bash
+# I dont seem to need this anymore
 sleep 1
 killall -e xdg-desktop-portal-hyprland
 killall -e xdg-desktop-portal-wlr
