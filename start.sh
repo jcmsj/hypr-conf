@@ -3,16 +3,11 @@
 #1 lockscreen and wallpaper
 hyprlock & 
 hyprpaper &
-#2 eww
-eww daemon &
-eww open bar &
-eww open barx & 
+#2 auto starts the gnome's auth agent 
+$gnomeAuthAgent &
+#3 ags
+ags
 nm-applet --indicator &
-
-#3
-~/.config/eww/scripts/update-brightness &
-~/.config/eww/scripts/update-vol &
-~/.config/eww/scripts/bt/update &
 
 #4 clipboards
 wl-paste --type text --watch cliphist store & #Stores only text
