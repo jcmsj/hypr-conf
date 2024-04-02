@@ -3,46 +3,54 @@
 # Function to change the active monitor
 laptop=eDP-1
 external=HDMI-A-1
-activateLaptop="keyword monitor $laptop, 1920x1080@60, auto, 1"
-activateHDMI="keyword monitor $external, 1920x1080@165, auto, 1"
 # Note: activate a monitor before disabling the other
+
+monitor() {
+    name=$1
+    state=$2
+    hyprctl "keyword monitor $name, $state"
+}
+highrr() {
+    name=$1
+    hyprctl "keyword monitor $name, highrr, auto 1"
+}
+mirror() {
+    monitor=$1
+    mirroredDisplay=$2
+    hyprctl "keyword monitor $monitor,preferred,auto,1,mirror,$mirroredDisplay"
+}
 change_monitor() {
     mode=$1
     case $mode in
         1)
             # Logic to change to monitor 1
-            hyprctl $activateLaptop
-            hyprctl "keyword monitor $external, disable"
+            monitor $laptop enable
+            monitor $external disable
+            echo "Changing to monitor 1"
             ;;
         2)
             # Logic to change to monitor 2
-            hyprctl $activateHDMI
-            hyprctl "keyword monitor $laptop, disable"
+            highrr $external
+            monitor $laptop disable
             echo "Changing to monitor 2"
             ;;
         mirror)
             # Logic to enable mirror mode
+            monitor $laptop enable
+            mirror $external $laptop
             echo "Enabling mirror mode"
-            hyprctl $activateLaptop
-            hyprctl "keyword monitor $external, preferred,auto,1,mirror,eDP-1"
             ;;
         extend)
             # Logic to enable extend mode
+            monitor $laptop enable
+            highrr $external
             echo "Enabling extend mode"
-            hyprctl $activateLaptop
-            hyprctl $activateHDMI
             ;;
         *)
-            echo "Invalid mode argument. Please provide one of the following: 1, 2, mirror, extend"
+            echo "Invalid mode argument. Please provide a <mode>: 1, 2, mirror, extend"
             ;;
     esac
 }
-
-# Check if mode argument is provided
-if [ $# -eq 0 ]; then
-    echo "Please provide a mode argument. Usage: $0 <mode>"
-    exit 1
-fi
 
 # Call the function to change the active monitor
 change_monitor $1
