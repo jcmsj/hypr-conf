@@ -17,8 +17,10 @@
       );
     in
     {
-      packages.${system}.default = monitorScript;
-      pacakges.${system}.monitorScript = monitorScript;
-      pacakges.${system}.restoreScript = restoreScript;
+      packages.${system} = {
+        default = monitorScript;
+        monitor = monitorScript;
+        restore = restoreScript;
+      };
     };
 }
