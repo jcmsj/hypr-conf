@@ -12,9 +12,13 @@
       monitorScript = (
         pkgs.writeShellScriptBin "reisen-monitor" (builtins.readFile ./monitor.sh)
       );
+      restoreScript = (
+        pkgs.writeShellScriptBin "reisen-restore" (builtins.readFile ./restore.sh)
+      );
     in
     {
       packages.${system}.default = monitorScript;
       pacakges.${system}.monitorScript = monitorScript;
+      pacakges.${system}.restoreScript = restoreScript;
     };
 }

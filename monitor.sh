@@ -47,9 +47,11 @@ change_monitor() {
             echo "Enabling extend mode"
             ;;
         *)
-            echo "Invalid mode argument. Please provide a <mode>: 1, 2, mirror, extend"
+            echo "Invalid mode argument `$mode`. Please provide a <mode>: 1, 2, mirror, extend"
+            return 1
             ;;
     esac
+    echo $mode > /tmp/last_monitor_mode
 }
 
 # Call the function to change the active monitor
