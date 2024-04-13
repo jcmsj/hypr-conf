@@ -12,13 +12,14 @@ monitor() {
 }
 highrr() {
     name=$1
-    hyprctl "keyword monitor $name, highrr, auto 1"
+    hyprctl "keyword monitor $name, highrr, auto, 1"
 }
 mirror() {
     monitor=$1
     mirroredDisplay=$2
     hyprctl "keyword monitor $monitor,preferred,auto,1,mirror,$mirroredDisplay"
 }
+
 change_monitor() {
     mode=$1
     case $mode in
@@ -42,7 +43,7 @@ change_monitor() {
             ;;
         extend)
             # Logic to enable extend mode
-            monitor $laptop enable
+            highrr $laptop
             highrr $external
             echo "Enabling extend mode"
             ;;
