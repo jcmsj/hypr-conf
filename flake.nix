@@ -1,5 +1,5 @@
 {
-  description = "Controls monitor using hyprctl";
+  description = "A collection of scripts for my personal use";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -15,12 +15,16 @@
       restoreScript = (
         pkgs.writeShellScriptBin "reisen-restore" (builtins.readFile ./restore.sh)
       );
+      nexus = (
+        pkgs.writeShellScriptBin "nexus" (builtins.readFile ./ss.sh)
+      );
     in
     {
       packages.${system} = {
         default = monitorScript;
         monitor = monitorScript;
         restore = restoreScript;
+        inherit nexus;
       };
     };
 }
